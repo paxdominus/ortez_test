@@ -28,12 +28,17 @@ class _EditScreenState extends State<EditScreen> {
             Consumer<TodoProvider>(
                 builder: (context, value, child) => TextButton(
                     onPressed: () {
-                      TodoProvider().editTodoModel({
-                        "title": titleController.text.trim(),
-                        "completed": value.currTodoModel.completed ?? false
-                      }, value.currTodoModel.id.toString());
-                      Fluttertoast.showToast(msg: "success");
-                      Navigator.pop(context);
+                      if (titleController.text.isEmpty) {
+                        Fluttertoast.showToast(
+                            msg: "Title should not be empty");
+                      } else {
+                        TodoProvider().editTodoModel({
+                          "title": titleController.text.trim(),
+                          "completed": value.currTodoModel.completed ?? false
+                        }, value.currTodoModel.id.toString());
+                        Fluttertoast.showToast(msg: "success");
+                        Navigator.pop(context);
+                      }
                     },
                     child: Text("SAVE")))
           ],

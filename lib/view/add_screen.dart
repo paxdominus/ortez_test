@@ -22,12 +22,17 @@ class _AddScreenState extends State<AddScreen> {
             Consumer<TodoProvider>(
                 builder: (context, value, child) => TextButton(
                     onPressed: () {
-                      TodoProvider().addTodoModel({
-                        "title": titleController.text.trim(),
-                        "completed": value.currTodoModel.completed ?? false
-                      });
-                      Fluttertoast.showToast(msg: "success");
-                      Navigator.pop(context);
+                      if (titleController.text.isEmpty) {
+                        Fluttertoast.showToast(
+                            msg: "Title should not be empty");
+                      } else {
+                        TodoProvider().addTodoModel({
+                          "title": titleController.text.trim(),
+                          "completed": value.currTodoModel.completed ?? false
+                        });
+                        Fluttertoast.showToast(msg: "success");
+                        Navigator.pop(context);
+                      }
                     },
                     child: Text("SAVE")))
           ],
